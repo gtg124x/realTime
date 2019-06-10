@@ -59,5 +59,5 @@ chmod a+x realTimeRaw.py
 --Start and end is in the form YEAR-MN-DAY_HR:MIN with AM or PM concatenated<br />
 --Ex. 2019-06-10_5:18AM<br />
 --EX. curl -i http://localhost:5000/realTimeRaw/api/v1.0/2019-06-10_5:18AM/2019-06-10_6:36AM<br />
-curl -i http://localhost:5000/realTimeRaw/api/v1.0/\<start\>/\<end\><br />
+curl -i http://localhost:5000/realTimeRaw/api/v1.0/<start\>/\<end\><br />
 
