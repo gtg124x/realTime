@@ -6,31 +6,31 @@ Objectives:
 
 virtualenv is a tool to create isolated Python environments. virtualenv creates a folder which contains all the necessary executables to use the packages that a Python project would need.
 
-##check if python is installed
+## Check if python is installed
 python --version
 
-#check if pip is installed
+## Check if pip is installed
 pip --version
 
-#install virtualenv
+## Install virtualenv
 pip install virtualenv
 
-#check if virtualenv is installed correctly
+## Check if virtualenv is installed correctly
 virtualenv --version
 
-#create project folder
+## Create project folder
 mkdir realTime
 
-#go to project folder
+## Go to project folder
 cd realTime
 
-#create virtual environment for Python 2.7
+## Create virtual environment for Python 2.7
 virtualenv -p /usr/bin/python2.7 venv2.7
 
-#activate newly created virtual environment
+## Activate newly created virtual environment
 source venv2.7/bin/activate
 
-#install Python Twitter Tools and flask
+## Install Python Twitter Tools and flask
 pip install twitter
 virtualenv flask
 pip install flask
