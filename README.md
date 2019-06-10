@@ -41,11 +41,10 @@ pip install flask<br />
 curl -O https://raw.githubusercontent.com/ideoforms/python-twitter-examples/master/config.py
 
 ## Modify config.py accordingly
--consumer key, consumer secret key, access key, access key secret<br />
-    Consumer Key (API Key) = "WBv2tK1r07yKlqQohBnQXlFUe"<br />
-    Consumer Secret (API Secret) = "2o5bxMkhvlQnA1s6K3TkBPaS2EXSGf6jjwBVzvsKqT3VrTdWvq"<br />
-    Access Token API Key = "2478905953-wzRnECJQwmsUo6wuMdR78CHGw8OeXWIQcR2a5Fr"<br />
-    Access Token Secret = "YxzfAy2elUUnxA95pcGB4YZSmispN6xbGlXspoyvzoJim"<br />
+Consumer Key (API Key) = "WBv2tK1r07yKlqQohBnQXlFUe"<br />
+Consumer Secret (API Secret) = "2o5bxMkhvlQnA1s6K3TkBPaS2EXSGf6jjwBVzvsKqT3VrTdWvq"<br />
+Access Token API Key = "2478905953-wzRnECJQwmsUo6wuMdR78CHGw8OeXWIQcR2a5Fr"<br />
+Access Token Secret = "YxzfAy2elUUnxA95pcGB4YZSmispN6xbGlXspoyvzoJim"<br />
 
 ## Copy realTimeRaw.py
 curl -O https://raw.githubusercontent.com/ideoforms/python-twitter-examples/master/twitter-search.py
@@ -57,9 +56,8 @@ chmod a+x realTimeRaw.py
 ./realTimeRaw.py
 
 ## Run to get output
+--Start and end is in the form YEAR-MN-DAY_HR:MIN with AM or PM concatenated<br />
+--Ex. 2019-06-10_5:18AM<br />
+--EX. curl -i http://localhost:5000/realTimeRaw/api/v1.0/2019-06-10_5:18AM/2019-06-10_6:36AM<br />
 curl -i http://localhost:5000/realTimeRaw/api/v1.0/<start>/<end><br />
--Start and end is in the form YEAR-MN-DAY_HR:MIN with AM or PM concatenated<br />
--Ex. 2019-06-10_5:18AM<br />
--EX. curl -i http://localhost:5000/realTimeRaw/api/v1.0/2019-06-10_5:18AM/2019-06-10_6:36AM<br />
-
 
