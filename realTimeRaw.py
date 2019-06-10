@@ -159,7 +159,7 @@ def get_tweets(start, end):
     return my_list
 
 
-@app.route('/todo/api/v1.0/tasks/<start>/<end>', methods=['GET'])
+@app.route('/realTimeRaw/api/v1.0/<start>/<end>', methods=['GET'])
 def get_tasks(start=None, end=None):
 
     # get list of geo-tagged tweets (original info + cell)

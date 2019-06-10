@@ -57,8 +57,9 @@ chmod a+x realTimeRaw.py
 ./realTimeRaw.py
 
 ## Run to get output
-curl -i http://localhost:5000/todo/api/v1.0/tasks/<start>/<end>
+curl -i http://localhost:5000/realTimeRaw/api/v1.0/<start>/<end>
 Start and end is in the form YEAR-MN-DAY_HR:MIN with AM or PM concatenated
 Ex. 2019-06-10_5:18AM
+EX. curl -i http://localhost:5000/realTimeRaw/api/v1.0/2019-06-10_5:18AM/2019-06-10_6:36AM
 
 
