@@ -11,6 +11,8 @@ python --version
 
 ## Check if pip is installed
 pip --version
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python get-pip.py
 
 ## Install virtualenv
 pip install virtualenv
@@ -49,10 +51,10 @@ curl -O https://raw.githubusercontent.com/ideoforms/python-twitter-examples/mast
 curl -O https://raw.githubusercontent.com/ideoforms/python-twitter-examples/master/twitter-search.py
 
 ## Make the application executable
-chmod a+x realTime_app.py
+chmod a+x realTimeRaw.py
 
 ## Run the application
-./realTime_app.py
+./realTimeRaw.py
 
 ## Run to get output
 curl -i http://localhost:5000/todo/api/v1.0/tasks/<start>/<end>
