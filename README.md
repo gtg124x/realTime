@@ -1,8 +1,8 @@
 # RealTimeRaw
-Twitter Streaming API
-Objectives:
--learn virtualenv
--learn how to collect tweets using sample stream
+Twitter Streaming API<br />
+Objectives:<br />
+-learn virtualenv<br />
+-learn how to collect tweets using sample stream<br />
 
 virtualenv is a tool to create isolated Python environments. virtualenv creates a folder which contains all the necessary executables to use the packages that a Python project would need.
 
