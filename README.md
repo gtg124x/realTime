@@ -4,15 +4,15 @@ Objectives:<br />
 -learn virtualenv<br />
 -learn how to collect tweets using sample stream<br />
 
-virtualenv is a tool to create isolated Python environments. virtualenv creates a folder which contains all the necessary executables to use the packages that a Python project would need.
+virtualenv is a tool to create isolated Python environments. virtualenv creates a folder which contains all the necessary executables to use the packages that a Python project would need.<br />
 
 ## Check if python is installed
-python --version
+python --version<br />
 
 ## Check if pip is installed
-pip --version
-curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-python get-pip.py
+pip --version<br />
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py<br />
+python get-pip.py<br />
 
 ## Install virtualenv
 pip install virtualenv
@@ -33,19 +33,19 @@ virtualenv -p /usr/bin/python2.7 venv2.7
 source venv2.7/bin/activate
 
 ## Install Python Twitter Tools and flask
-pip install twitter
-virtualenv flask
-pip install flask
+pip install twitter<br />
+virtualenv flask<br />
+pip install flask<br />
 
 ## Copy config.py from "twitter python sample code"
 curl -O https://raw.githubusercontent.com/ideoforms/python-twitter-examples/master/config.py
 
 ## Modify config.py accordingly
--consumer key, consumer secret key, access key, access key secret
-    Consumer Key (API Key) = "WBv2tK1r07yKlqQohBnQXlFUe"
-    Consumer Secret (API Secret) = "2o5bxMkhvlQnA1s6K3TkBPaS2EXSGf6jjwBVzvsKqT3VrTdWvq"
-    Access Token API Key = "2478905953-wzRnECJQwmsUo6wuMdR78CHGw8OeXWIQcR2a5Fr"
-    Access Token Secret = "YxzfAy2elUUnxA95pcGB4YZSmispN6xbGlXspoyvzoJim"
+-consumer key, consumer secret key, access key, access key secret<br />
+    Consumer Key (API Key) = "WBv2tK1r07yKlqQohBnQXlFUe"<br />
+    Consumer Secret (API Secret) = "2o5bxMkhvlQnA1s6K3TkBPaS2EXSGf6jjwBVzvsKqT3VrTdWvq"<br />
+    Access Token API Key = "2478905953-wzRnECJQwmsUo6wuMdR78CHGw8OeXWIQcR2a5Fr"<br />
+    Access Token Secret = "YxzfAy2elUUnxA95pcGB4YZSmispN6xbGlXspoyvzoJim"<br />
 
 ## Copy realTimeRaw.py
 curl -O https://raw.githubusercontent.com/ideoforms/python-twitter-examples/master/twitter-search.py
@@ -57,9 +57,9 @@ chmod a+x realTimeRaw.py
 ./realTimeRaw.py
 
 ## Run to get output
-curl -i http://localhost:5000/realTimeRaw/api/v1.0/<start>/<end>
--Start and end is in the form YEAR-MN-DAY_HR:MIN with AM or PM concatenated
--Ex. 2019-06-10_5:18AM
--EX. curl -i http://localhost:5000/realTimeRaw/api/v1.0/2019-06-10_5:18AM/2019-06-10_6:36AM
+curl -i http://localhost:5000/realTimeRaw/api/v1.0/<start>/<end><br />
+-Start and end is in the form YEAR-MN-DAY_HR:MIN with AM or PM concatenated<br />
+-Ex. 2019-06-10_5:18AM<br />
+-EX. curl -i http://localhost:5000/realTimeRaw/api/v1.0/2019-06-10_5:18AM/2019-06-10_6:36AM<br />
 
 
