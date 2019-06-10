@@ -35,27 +35,28 @@ pip install twitter
 virtualenv flask
 pip install flask
 
-#copy config.py from "twitter python sample code"
+## Copy config.py from "twitter python sample code"
 curl -O https://raw.githubusercontent.com/ideoforms/python-twitter-examples/master/config.py
 
-#modify config.py accordingly
+## Modify config.py accordingly
 -consumer key, consumer secret key, access key, access key secret
     Consumer Key (API Key) = "WBv2tK1r07yKlqQohBnQXlFUe"
     Consumer Secret (API Secret) = "2o5bxMkhvlQnA1s6K3TkBPaS2EXSGf6jjwBVzvsKqT3VrTdWvq"
     Access Token API Key = "2478905953-wzRnECJQwmsUo6wuMdR78CHGw8OeXWIQcR2a5Fr"
     Access Token Secret = "YxzfAy2elUUnxA95pcGB4YZSmispN6xbGlXspoyvzoJim"
 
-#copy realTimeRaw.py
+## Copy realTimeRaw.py
 curl -O https://raw.githubusercontent.com/ideoforms/python-twitter-examples/master/twitter-search.py
 
-#make the application executable
+## Make the application executable
 chmod a+x realTime_app.py
 
-#run the application
+## Run the application
 ./realTime_app.py
 
-#run to get output
-# start and end is in the form YEAR-MN-DAY_HR:MIN with AM or PM concatenated
-# Ex. 2019-06-10_5:18AM
+## Run to get output
 curl -i http://localhost:5000/todo/api/v1.0/tasks/<start>/<end>
+Start and end is in the form YEAR-MN-DAY_HR:MIN with AM or PM concatenated
+Ex. 2019-06-10_5:18AM
+
 
