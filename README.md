@@ -61,4 +61,10 @@ chmod a+x realTimeRaw.py
 --EX. curl -i http://localhost:5000/realTimeRaw/api/v1.0/2019-06-10_5:18AM/2019-06-10_6:36AM<br />
 <br />
 curl -i http://localhost:5000/realTimeRaw/api/v1.0/<start\>/\<end\><br />
+<br />
+<br />
+or to output to file use
+<br />
+or curl -i http://localhost:5000/realTimeRaw/api/v1.0/<start\>/\<end\> > <file_name>.json
+<br />
 
