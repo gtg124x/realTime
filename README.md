@@ -46,8 +46,8 @@ Consumer Secret (API Secret) = "2o5bxMkhvlQnA1s6K3TkBPaS2EXSGf6jjwBVzvsKqT3VrTdW
 Access Token API Key = "2478905953-wzRnECJQwmsUo6wuMdR78CHGw8OeXWIQcR2a5Fr"<br />
 Access Token Secret = "YxzfAy2elUUnxA95pcGB4YZSmispN6xbGlXspoyvzoJim"<br />
 
-## Copy realTimeRaw.py
-curl -O https://raw.githubusercontent.com/ideoforms/python-twitter-examples/master/twitter-search.py
+## Download realTimeRaw.py
+git clone https://github.com/gtg124x/realTimeRaw.git
 
 ## Make the application executable
 chmod a+x realTimeRaw.py
