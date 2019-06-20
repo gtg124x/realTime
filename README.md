@@ -55,22 +55,13 @@ chmod a+x realTimeRaw.py
 ## Run the application
 ./realTimeRaw.py
 
+## API Formate
+http://localhost:5000/realTimeRaw/api/v1.0/<start><end><br />
+<br />
+Start and end is in the form YEAR-MN-DAY_HR:MIN with AM or PM concatenated<br />
+Ex. 2019-06-10_5:18AM<br />  
+
 ## Run to get output
---Start and end is in the form YEAR-MN-DAY_HR:MIN with AM or PM concatenated<br />
---Ex. 2019-06-10_5:18AM<br />
---EX. curl -i http://localhost:5000/realTimeRaw/api/v1.0/2019-06-10_5:18AM/2019-06-10_6:36AM<br />
-<br />
-curl -i http://localhost:5000/realTimeRaw/api/v1.0/<start\>/\<end\><br />
-<br />
-<br />
-or to output to file use
-<br />
-<br />
-curl -o target/path/filename URL
-<br />
-ex. curl -o http://localhost:5000/realTimeRaw/api/v1.0/<start\>/\<end\> 
-<br />
-<br />
-curl -o ~/Desktop/file.json http://localhost:5000/realTimeRaw/api/v1.0/2019-06-16_12:01AM/2019-06-20_12:05AM
-<br />
+curl -o target/path/filename URL<br />
+--EX. curl -o ~/Desktop/file.json http://localhost:5000/realTimeRaw/api/v1.0/2019-06-16_12:01AM/2019-06-20_12:05AM<br />
 
