@@ -65,6 +65,12 @@ curl -i http://localhost:5000/realTimeRaw/api/v1.0/<start\>/\<end\><br />
 <br />
 or to output to file use
 <br />
-or curl -i http://localhost:5000/realTimeRaw/api/v1.0/<start\>/\<end\> > <file_name>.json
+<br />
+curl -o target/path/filename URL
+<br />
+ex. curl -o http://localhost:5000/realTimeRaw/api/v1.0/<start\>/\<end\> 
+<br />
+<br />
+curl -o ~/Desktop/file.json http://localhost:5000/realTimeRaw/api/v1.0/2019-06-16_12:01AM/2019-06-20_12:05AM
 <br />
 
