@@ -55,7 +55,7 @@ chmod a+x realTimeRaw.py
 ## Run the application
 ./realTimeRaw.py
 
-## API Formate
+## API 
 http://localhost:5000/realTimeRaw/api/v1.0/<start><end><br />
 <br />
 Start and end is in the form YEAR-MN-DAY_HR:MIN with AM or PM concatenated<br />
