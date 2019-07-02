@@ -36,6 +36,9 @@ source venv2.7/bin/activate
 pip install twitter<br />
 virtualenv flask<br />
 pip install flask<br />
+pip install postgresql<br />
+pip install psycopg2-binary<br />
+pip install configparser<br />
 
 ## Copy config.py from "twitter python sample code"
 curl -O https://raw.githubusercontent.com/ideoforms/python-twitter-examples/master/config.py
@@ -49,19 +52,24 @@ Access Token Secret = "YxzfAy2elUUnxA95pcGB4YZSmispN6xbGlXspoyvzoJim"<br />
 ## Download realTimeRaw.py
 git clone https://github.com/gtg124x/realTimeRaw.git
 
-## Make the application executable
-chmod a+x realTimeRaw.py
+## In a seperate termininal, Create Database and table
+psql postgres<br />
+\i ~/realTimeRaw/sql/createDB.sql<br />
+\i ~/realTimeRaw/sql/create_tb_rawdata.sql<br />
 
-## Run the application
-./realTimeRaw.py
+## In a seperate termininal, Make the application executable and Run it
+chmod a+x RawDataRetriever.py<br />
+./RawDataRetriever.py<br />
 
-## API 
-http://localhost:5000/realTimeRaw/api/v1.0/<start><end><br />
+## In a seperate termininal, Make the API executable and Run it
+chmod a+x RawDataAPI.py<br />
+./RawDataAPI.py<br />
+
+## In a seperate termininal, send a get request to the API
+Format is http://localhost:5000/realTimeRaw/api/v2.0//<start><end><br />
 <br />
-Start and end is in the form YEAR-MN-DAY_HR:MIN with AM or PM concatenated<br />
-Ex. 2019-06-10_5:18AM<br />  
-
-## Run to get output
+Start and end is in the form YEAR-MN-DAY_HR:MIN<br />
+Ex. 2019-06-10_5:18:00<br />
 curl -o target/path/filename URL<br />
---EX. curl -o ~/Desktop/file.json http://localhost:5000/realTimeRaw/api/v1.0/2019-06-16_12:01AM/2019-06-20_12:05AM<br />
+--EX. curl -o ~/Desktop/file.json http://localhost:5000/realTimeRaw/api/v2.0/2019-07-02_04:47:00/2019-07-02_04:50:00<br />
 
