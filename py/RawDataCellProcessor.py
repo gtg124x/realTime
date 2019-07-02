@@ -49,7 +49,7 @@ class RawDataCellProcessor( object ):
         row_column = str(row) + "_" + str(column)
 
         # add cell info to original tweet info
-        tweet["row_column"] = row_column
+        tweet["cell"] = row_column
 
         return tweet
 
