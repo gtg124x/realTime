@@ -66,10 +66,12 @@ chmod a+x RawDataAPI.py<br />
 ./RawDataAPI.py<br />
 
 ## In a seperate termininal, send a get request to the API
-Format is http://localhost:5000/realTimeRaw/api/v2.0/start/end
+Format is http://localhost:5000/realTimeRaw/api/v2.0/start/end<br />
+<br />
 Start and end is in the form YEAR-MN-DAY_HR:MIN:SEC<br />
 Ex. 2019-06-10_5:18:00<br />
 <br />
+TO GET OUTPUT AS JSON FILE USE<br />
 curl -o target/path/filename URL<br />
 --EX. curl -o ~/Desktop/file.json http://localhost:5000/realTimeRaw/api/v2.0/2019-07-02_04:47:00/2019-07-02_04:50:00<br />
 
