@@ -57,9 +57,11 @@ WITH event_list AS (select hashtag,
 ## run these two each hour...
 **EventRetriever (processes raw data into events, puts them into database)**<br />
 **Function that determines what is the first cell to contain a hashtag and marks that as the event cell**<br />
+```
 chmod a+x EventRetriever.py<br />
 ./EventRetriever.py<br />
 \i ~/realTime/realTimeEvent/sql/fn_update_is_event_cell.sql<br />
+```
 
 ## In a seperate termininal, Make the API executable and Run it
 This should also always be running to recieve requests from the Web app team and Android Team<br />
