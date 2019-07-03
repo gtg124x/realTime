@@ -1,15 +1,37 @@
-pip install requests
-
 ## Install Python Tools
+```
+pip install requests
+```
 
 ## In a seperate termininal, Create Database and Table
-psql postgres<br />
-\i ~/realTime/realTimeEvent/sql/create_eventdb.sql<br />
-\q<br />
-psql eventdb<br />
-\i ~/realTime/realTimeEvent/sql/create_tb_event.sql<br />
+```
+psql postgres
+\i ~/realTime/realTimeEvent/sql/create_eventdb.sql
+\q
+psql eventdb
+\i ~/realTime/realTimeEvent/sql/create_tb_event.sql
+```
 
-----
+## run these two each hour...
+**EventRetriever (processes raw data into events, puts them into database)**<br />
+**Function that determines what is the first cell to contain a hashtag and marks that as the event cell**<br />
+```
+chmod a+x EventRetriever.py
+./EventRetriever.py
+\i ~/realTime/realTimeEvent/sql/fn_update_is_event_cell.sql
+```
+
+## In a seperate termininal, Make the API executable and Run it
+**This should also always be running to recieve requests from the Web app team and Android Team**<br />
+```
+chmod a+x EventAPI.py
+./EventAPI.py
+```
+
+## The REST API format
+
+
+
 
 Create view1 of this 24 hours (now, now - 24)
 Create view 2of "past" 24 hours, shifted off 1 hour (now - 1hr, now - 2hr)
@@ -50,26 +72,3 @@ WITH event_list AS (select hashtag,
                     LIMIT 500
 )
     select * from event_list;
-
-
-
-
-## run these two each hour...
-**EventRetriever (processes raw data into events, puts them into database)**<br />
-**Function that determines what is the first cell to contain a hashtag and marks that as the event cell**<br />
-```
-chmod a+x EventRetriever.py<br />
-./EventRetriever.py<br />
-\i ~/realTime/realTimeEvent/sql/fn_update_is_event_cell.sql<br />
-```
-
-## In a seperate termininal, Make the API executable and Run it
-This should also always be running to recieve requests from the Web app team and Android Team<br />
-chmod a+x EventAPI.py<br />
-./EventAPI.py<br />
-
-
-## The REST API format
-
-
-
