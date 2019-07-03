@@ -10,11 +10,12 @@ from configparser import ConfigParser
 class RawDataBase( object ):
 
     @staticmethod
-    def insert_tb_rawData( conn, tweet ):
-        sql = """INSERT INTO tb_rawdata (tweet) VALUES(%s);"""
+    def insert_tb_rawData( conn, tweet):
+        created = tweet["created"]
+        sql = """INSERT INTO tb_rawdata (tweet, created) VALUES(%s, %s);"""
         # create a cursor
         cur = conn.cursor()
-        cur.execute(sql, (json.dumps(tweet),))
+        cur.execute(sql, (json.dumps(tweet),created,))
         conn.commit()
 
     @staticmethod

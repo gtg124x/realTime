@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import datetime
+
 class RawDataCellProcessor( object ):
 
     @staticmethod
@@ -49,7 +51,11 @@ class RawDataCellProcessor( object ):
         row_column = str(row) + "_" + str(column)
 
         # add cell info to original tweet info
-        tweet["cell"] = row_column
+        tweet["cell"]      = row_column
+
+        now                = datetime.datetime.now()
+        now_str            = str(now)
+        tweet["created"] = now_str
 
         return tweet
 

@@ -50,6 +50,7 @@ class EventRetriever( object ):
                 if len(tweet[0]["entities"]["hashtags"]) != 0:
                     text = tweet[0]["text"]
                     cell = tweet[0]["cell"]
+                    created = tweet[0]["created"]
 
                     for hashgroup in tweet[0]["entities"]["hashtags"]:
 
@@ -57,7 +58,7 @@ class EventRetriever( object ):
 
                             if hashtag_candidate == "text":
                                 hashtag = hashgroup["text"]
-                                EventDataBase.insert_tb_event(conn, hashtag, text, cell )
+                                EventDataBase.insert_tb_event(conn, hashtag, text, cell, created )
 
         # End Database Connection
         EventDataBase.end_connect(conn)

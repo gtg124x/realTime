@@ -9,7 +9,7 @@ CREATE SEQUENCE rawdata_seq;
 
 CREATE TABLE tb_rawdata (
     rawdata INTEGER PRIMARY KEY DEFAULT nextval('rawdata_seq'),
-    created TIMESTAMP DEFAULT Now(),
+    created TIMESTAMP,
     tweet JSON
 );
 

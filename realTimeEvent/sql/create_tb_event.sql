@@ -12,8 +12,9 @@ CREATE TABLE tb_event (
     hashtag VARCHAR,
     tweet VARCHAR,
     cell VARCHAR,
-    created TIMESTAMP DEFAULT Now(),
-    is_event_cell BOOLEAN DEFAULT 't'
+    created TIMESTAMP,
+    is_event_cell BOOLEAN DEFAULT 'f',
+    inserted TIMESTAMP DEFAULT NOW()
 );
 
 

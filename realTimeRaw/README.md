@@ -55,7 +55,10 @@ git clone https://github.com/gtg124x/realTimeRaw.git
 ## In a seperate termininal, Create Database and table
 psql postgres<br />
 \i ~/realTime/realTimeRaw/sql/create_rawdatadb.sql<br />
+\q<br />
+psql rawdatadb<br />
 \i ~/realTime/realTimeRaw/sql/create_tb_rawdata.sql<br />
+\q<br />
 
 ## In a seperate termininal, Make the application executable and Run it
 This script would be running 24/7 streaming tweets from Twitter and inserting them into the database (with cell info)<br />

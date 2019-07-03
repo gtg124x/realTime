@@ -9,10 +9,6 @@ psql postgres<br />
 psql eventdb<br />
 \i ~/realTime/realTimeEvent/sql/create_tb_event.sql<br />
 
-create function that upon insert to tb_event, mark owned if the hashtag is first used in this 1hr data set (now -1hr )
-
-when inserting row, mark as not owned if for this interval if there is there exists an entry where hashtags are == & cells are != & owned is TRUE
-
 ----
 
 Create view1 of this 24 hours (now, now - 24)
@@ -58,9 +54,12 @@ WITH event_list AS (select hashtag,
 
 
 
-## run EventRetriever each hour
+## run these two each hour...
+#EventRetriever (processes raw data into events, puts them into database)
+#Function that determines what is the first cell to contain a hashtag and marks that as the event cell
 chmod a+x EventRetriever.py<br />
 ./EventRetriever.py<br />
+\i ~/realTime/realTimeEvent/sql/fn_update_is_event_cell.sql<br />
 
 ## In a seperate termininal, Make the API executable and Run it
 This should also always be running to recieve requests from the Web app team and Android Team<br />

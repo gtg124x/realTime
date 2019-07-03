@@ -10,11 +10,11 @@ from configparser import ConfigParser
 class EventDataBase( object ):
 
     @staticmethod
-    def insert_tb_event( conn, hashtag, tweet, cell ):
-        sql = """INSERT INTO tb_event(hashtag, tweet, cell ) VALUES(%s, %s, %s);"""
+    def insert_tb_event( conn, hashtag, tweet, cell, created ):
+        sql = """INSERT INTO tb_event(hashtag, tweet, cell, created ) VALUES(%s, %s, %s, %s);"""
         # create a cursor
         cur = conn.cursor()
-        cur.execute(sql, (hashtag, tweet, cell,))
+        cur.execute(sql, (hashtag, tweet, cell, created,))
         conn.commit()
 
     @staticmethod
