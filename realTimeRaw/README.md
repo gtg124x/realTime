@@ -107,3 +107,4 @@ For debugging, the following redirects the output to a file on the desktop<br />
 curl -o target/path/filename URL
 --EX. curl -o ~/Desktop/file.json http://localhost:5000/realTimeRaw/api/v2.0/2019-07-02_04:47:00/2019-07-02_04:50:00
 ```
+
