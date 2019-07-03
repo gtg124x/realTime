@@ -66,4 +66,5 @@ class EventRetriever( object ):
 if __name__ == '__main__':
     get_url = EventRetriever().set_up_API_call()
     EventRetriever().insertEvents( get_url )
+    EventDataBase.fn_update_is_event_cell()
 

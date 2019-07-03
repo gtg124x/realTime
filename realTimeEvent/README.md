@@ -12,15 +12,14 @@ psql postgres
 \q
 psql eventdb
 \i ~/realTime/realTimeEvent/sql/create_tb_event.sql
+\i ~/realTime/realTimeEvent/sql/fn_update_is_event_cell.sql
 ```
 
-## run these two each hour...
-**EventRetriever (processes raw data into events, puts them into database)**<br />
-**Function that determines what is the first cell to contain a hashtag and marks that as the event cell**<br />
+## This gets executed ever hour...
+**EventRetriever (processes raw data into events, puts them into database) and marks if event belongs to cell**<br />
 ```
 chmod a+x EventRetriever.py
 ./EventRetriever.py
-\i ~/realTime/realTimeEvent/sql/fn_update_is_event_cell.sql
 ```
 
 ## In a seperate termininal, Make the API executable and Run it
