@@ -33,14 +33,12 @@ virtualenv -p /usr/bin/python2.7 venv2.7
 source venv2.7/bin/activate
 
 ## Install Python Twitter Tools and flask
-'''
 pip install twitter<br />
 virtualenv flask<br />
 pip install flask<br />
 pip install postgresql<br />
 pip install psycopg2-binary<br />
 pip install configparser<br />
-'''
 
 ## Copy config.py from "twitter python sample code"
 curl -O https://raw.githubusercontent.com/ideoforms/python-twitter-examples/master/config.py
@@ -56,8 +54,8 @@ git clone https://github.com/gtg124x/realTimeRaw.git
 
 ## In a seperate termininal, Create Database and table
 psql postgres<br />
-\i ~/realTimeRaw/sql/createDB.sql<br />
-\i ~/realTimeRaw/sql/create_tb_rawdata.sql<br />
+\i ~/realTime/realTimeRaw/sql/create_rawdatadb.sql<br />
+\i ~/realTime/realTimeRaw/sql/create_tb_rawdata.sql<br />
 
 ## In a seperate termininal, Make the application executable and Run it
 This script would be running 24/7 streaming tweets from Twitter and inserting them into the database (with cell info)<br />
@@ -65,16 +63,16 @@ chmod a+x RawDataRetriever.py<br />
 ./RawDataRetriever.py<br />
 
 ## In a seperate termininal, Make the API executable and Run it
+This should also always be running to recieve requests from the Event Server<br />
 chmod a+x RawDataAPI.py<br />
 ./RawDataAPI.py<br />
 
-## In a seperate termininal, send a get request to the API
+## The REST API format
 Format is http://localhost:5000/realTimeRaw/api/v2.0/start/end<br />
 <br />
 Start and end is in the form YEAR-MN-DAY_HR:MIN:SEC<br />
 Ex. 2019-06-10_5:18:00<br />
 <br />
-TO GET OUTPUT AS JSON FILE USE<br />
+For debugging, the following redirects the output to a file on the desktop<br />
 curl -o target/path/filename URL<br />
 --EX. curl -o ~/Desktop/file.json http://localhost:5000/realTimeRaw/api/v2.0/2019-07-02_04:47:00/2019-07-02_04:50:00<br />
-
