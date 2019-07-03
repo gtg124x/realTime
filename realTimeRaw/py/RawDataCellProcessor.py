@@ -15,14 +15,15 @@ class RawDataCellProcessor( object ):
         #located, among other fields.
         if tweet["place"] is not None:
             long_lat = tweet["place"]["bounding_box"]["coordinates"]
-            # long_lat returns a polygon of 4 long_lat's
-            # We just need one to compute the cell
-            # Ex. [[[-92.227387, 13.72873], [-92.227387, 17.816205], [-88.221055, 17.816205], [-88.221055, 13.72873]]]
-            # The first dereference gets us into the list
-            # The second dereference gets us access to the first long_lat pair
-            # The third dereference gets access to long and latitude for manipulation in cell
-            longitude  = long_lat[0][0][0]
-            latitude = long_lat[0][0][1]
+            if long_lat is not None:
+                # long_lat returns a polygon of 4 long_lat's
+                # We just need one to compute the cell
+                # Ex. [[[-92.227387, 13.72873], [-92.227387, 17.816205], [-88.221055, 17.816205], [-88.221055, 13.72873]]]
+                # The first dereference gets us into the list
+                # The second dereference gets us access to the first long_lat pair
+                # The third dereference gets access to long and latitude for manipulation in cell
+                longitude  = long_lat[0][0][0]
+                latitude = long_lat[0][0][1]
 
         # Tweets with a Point coordinate come from GPS enabled devices,
         # and represent the exact GPS location of the Tweet in question.

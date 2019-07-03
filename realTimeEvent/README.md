@@ -55,8 +55,8 @@ WITH event_list AS (select hashtag,
 
 
 ## run these two each hour...
-#EventRetriever (processes raw data into events, puts them into database)
-#Function that determines what is the first cell to contain a hashtag and marks that as the event cell
+** EventRetriever (processes raw data into events, puts them into database) **<br />
+** Function that determines what is the first cell to contain a hashtag and marks that as the event cell **<br />
 chmod a+x EventRetriever.py<br />
 ./EventRetriever.py<br />
 \i ~/realTime/realTimeEvent/sql/fn_update_is_event_cell.sql<br />
