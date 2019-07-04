@@ -34,9 +34,9 @@ chmod a+x EventAPI.py
 **The url is  http://localhost:5000/realTimeEvent/api/v1.0/<latitude>/<longitude>**<br />
 Input: latitude, longitude<br />
 Output: events (event_id (hashtag) + corresponding tweets) for a given cell<br />
-An example is...<br />
+An example is for atlanta is...<br />
 ```
-http://localhost:5000/realTimeEvent/api/v1.0/50.4584/-3.583
+http://localhost:5000/realTimeEvent/api/v1.0/33.755/-84.39
 ```
 You will receive back a json that is formatted like the following...<br />
 ```
@@ -44,5 +44,8 @@ You will receive back a json that is formatted like the following...<br />
 ```
 
 In this case the keys (event_ids) were "endorphins" and "Endomondo", and the values were an array of tweets for that event_id. <br />
+<br />
+For debugging, the following redirects the output to a file on the desktop<br />
+curl -o ~/Desktop/file.json http://localhost:5000/realTimeEvent/api/v1.0/33.755/-84.39<br />
 
 
