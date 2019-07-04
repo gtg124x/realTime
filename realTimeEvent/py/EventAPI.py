@@ -10,7 +10,6 @@ app = Flask(__name__)
 # Function for getting events
 #-----------------------------------------------------------------------
 from EventDataBase import *
-from EventGetter import *
 
 
 class EventAPI( object ):
@@ -31,11 +30,17 @@ class EventAPI( object ):
         cell = str(row) + "_" + str(column)
 
         # get list of geo-tagged tweets (original info + cell)
-        my_list = EventGetter.getEventList( cell )
+        my_dict = EventDataBase.get_EventList( cell )
+
+        if my_dict is None:
+            my_dict = 'no_events_for_cell'
+
+            #my_json_string = dict(my_list)
 
         # convert to json because flask demands it
-        my_json_string = json.loads(my_list)
-        return my_json_string
+        my_json = json.dumps(my_dict)
+        return my_json
+
 
 
     # boiler plate

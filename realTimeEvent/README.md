@@ -13,6 +13,7 @@ psql postgres
 psql eventdb
 \i ~/realTime/realTimeEvent/sql/create_tb_event.sql
 \i ~/realTime/realTimeEvent/sql/fn_update_is_event_cell.sql
+\i ~/realTime/realTimeEvent/sql/create_vw_events.sql
 ```
 
 ## This gets executed ever hour...
@@ -30,3 +31,4 @@ chmod a+x EventAPI.py
 ```
 
 ## The REST API format
+curl -o ~/Desktop/file.json http://localhost:5000/realTimeEvent/api/v1.0/-33.5/-70.625

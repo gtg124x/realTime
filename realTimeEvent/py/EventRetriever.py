@@ -48,6 +48,7 @@ class EventRetriever( object ):
             data = json.load(json_file)
             for tweet in data:
                 if len(tweet[0]["entities"]["hashtags"]) != 0:
+                    id_str = tweet[0]["id_str"]
                     text = tweet[0]["text"]
                     cell = tweet[0]["cell"]
                     created = tweet[0]["created"]
@@ -58,7 +59,7 @@ class EventRetriever( object ):
 
                             if hashtag_candidate == "text":
                                 hashtag = hashgroup["text"]
-                                EventDataBase.insert_tb_event(conn, hashtag, text, cell, created )
+                                EventDataBase.insert_tb_event(conn, hashtag, text, cell, created, id_str )
 
         # End Database Connection
         EventDataBase.end_connect(conn)

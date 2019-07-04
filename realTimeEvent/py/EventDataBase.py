@@ -20,8 +20,12 @@ class EventDataBase( object ):
 
 
     @staticmethod
-    def insert_tb_event( conn, hashtag, tweet, cell, created ):
-        sql = """INSERT INTO tb_event(hashtag, tweet, cell, created ) VALUES(%s, %s, %s, %s);"""
+    def insert_tb_event( conn, hashtag, tweet, cell, created, id_str ):
+        sql = """
+                INSERT INTO tb_event(hashtag, tweet, cell, created, id_str )
+                     VALUES (%s, %s, %s, %s, %s)
+                ON CONFLICT (id_str) DO NOTHING;
+              """
         # create a cursor
         cur = conn.cursor()
         cur.execute(sql, (hashtag, tweet, cell, created,))
@@ -29,27 +33,27 @@ class EventDataBase( object ):
 
 
     @staticmethod
-    def get_EventList( start, end, cell ):
+    def get_EventList( cell ):
         conn = EventDataBase.connect()
-        sql = """WITH event_list AS (select hashtag,
-                    array_agg(tweet) as tweet,
-                    COUNT (tweet) as count
-                    FROM tb_event
-                    WHERE cell = %s
-                      AND created >= %s::timestamp
-                      AND created < %s::timestamp
-                 GROUP BY hashtag
-                 ORDER BY count desc
-                    LIMIT 500) select event_list.hashtag, event_list.tweet from event_list;"""
+        sql = """
+        SELECT hashtag,
+               tweet
+          FROM vw_events
+         WHERE cell = %s;
+        """
         # create a cursor
         cur = conn.cursor()
-        cur.execute(sql, (cell, start, end,))
-        results = cur.fetchall()
+        cur.execute(sql, (cell,))
+        my_dict = {}
+        for event in cur:
+            if event is not None:
+                key = event[0]
+                [value] = event[1]
+                my_dict[key] = value
+                print value
         cur.close()
         conn.close()
-        #rs = json.dumps(dict(results))
-        #EventDataBase.end_connect(conn)
-        return results
+        return my_dict
 
     @staticmethod
     def end_connect(conn):

@@ -14,11 +14,7 @@ CREATE TABLE tb_event (
     cell VARCHAR,
     created TIMESTAMP,
     is_event_cell BOOLEAN DEFAULT 'f',
-    inserted TIMESTAMP DEFAULT NOW()
+    inserted TIMESTAMP DEFAULT NOW(),
+    id_str VARCHAR UNIQUE
 );
-
-
-
-
-
 
