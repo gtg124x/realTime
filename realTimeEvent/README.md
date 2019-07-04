@@ -32,3 +32,5 @@ chmod a+x EventAPI.py
 
 ## The REST API format
 curl -o ~/Desktop/file.json http://localhost:5000/realTimeEvent/api/v1.0/-33.5/-70.625
+
+

@@ -7,7 +7,7 @@ BEGIN
 
     CREATE TEMPORARY TABLE IF NOT EXISTS temp_table AS
     SELECT distinct on (hashtag) hashtag, is_event_cell, created, cell, event
-      FROM tb_event WHERE inserted >= CURRENT_TIMESTAMP - INTERVAL '50 minutes'
+      FROM tb_event WHERE inserted >= CURRENT_TIMESTAMP - INTERVAL '2 minutes'
   ORDER BY hashtag, created asc;
 
     Update tb_event

@@ -28,7 +28,7 @@ class EventDataBase( object ):
               """
         # create a cursor
         cur = conn.cursor()
-        cur.execute(sql, (hashtag, tweet, cell, created,))
+        cur.execute(sql, (hashtag, tweet, cell, created, id_str,))
         conn.commit()
 
 
