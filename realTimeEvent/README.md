@@ -16,7 +16,7 @@ psql eventdb
 \i ~/realTime/realTimeEvent/sql/create_vw_events.sql
 ```
 
-## This gets executed ever hour...
+## In a seperate terminal, This gets executed ever hour...
 **EventRetriever (processes raw data into events, puts them into database) and marks if event belongs to cell**<br />
 ```
 chmod a+x EventRetriever.py
