@@ -15,6 +15,8 @@ class EventDataBase( object ):
         # create a cursor
         cur = conn.cursor()
         cur.callproc('fn_update_is_event_cell')
+        conn.commit()
+        EventDataBase.end_connect(conn)
 
 
     @staticmethod
@@ -24,6 +26,7 @@ class EventDataBase( object ):
         cur = conn.cursor()
         cur.execute(sql, (hashtag, tweet, cell, created,))
         conn.commit()
+
 
     @staticmethod
     def get_EventList( start, end, cell ):
@@ -42,6 +45,8 @@ class EventDataBase( object ):
         cur = conn.cursor()
         cur.execute(sql, (cell, start, end,))
         results = cur.fetchall()
+        cur.close()
+        conn.close()
         #rs = json.dumps(dict(results))
         #EventDataBase.end_connect(conn)
         return results
@@ -53,6 +58,7 @@ class EventDataBase( object ):
         cur = conn.cursor()
         # close the communication with the PostgreSQL
         cur.close()
+        conn.close()
 
 
     @staticmethod
