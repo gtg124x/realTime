@@ -31,7 +31,7 @@ chmod a+x EventAPI.py
 ```
 
 ## The REST API Format
-**The url is  http://localhost:5000/realTimeEvent/api/v1.0/<latitude>/<longitude>**<br />
+**The url is  http://localhost:5000/realTimeEvent/api/v1.0/latitude/longitude**<br />
 Input: latitude, longitude<br />
 Output: events (event_id (hashtag) + corresponding tweets) for a given cell<br />
 An example is for atlanta is...<br />
