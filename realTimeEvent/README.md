@@ -13,7 +13,7 @@ psql postgres
 psql eventdb
 \i ~/realTime/realTimeEvent/sql/create_tb_event.sql
 \i ~/realTime/realTimeEvent/sql/fn_update_is_event_cell.sql
-\i ~/realTime/realTimeEvent/sql/create_vw_events.sql
+\i ~/realTime/realTimeEvent/sql/create_vw_event.sql
 ```
 
 ## In a seperate terminal, This gets executed ever hour...

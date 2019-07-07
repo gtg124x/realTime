@@ -1,8 +1,7 @@
-CREATE OR REPLACE VIEW vw_events AS
+CREATE OR REPLACE VIEW vw_event AS
 WITH tt_expected AS
 (
   SELECT hashtag,
-         array_agg(tweet) AS tweet,
          COUNT (tweet) AS expected,
          array_agg(created) AS created
     FROM tb_event
@@ -10,7 +9,6 @@ WITH tt_expected AS
      AND created >= CURRENT_TIMESTAMP - INTERVAL '25 hours'
 GROUP BY hashtag
 ORDER BY expected desc
-LIMIT 500
 ),
 tt_observed AS
 (
@@ -25,17 +23,26 @@ GROUP BY hashtag
 ORDER BY observed desc
 LIMIT 500
 ),
-tt_obs_minus_exp AS
+tt_obs_exp AS
 (
 SELECT tto.hashtag,
-       array_agg(tto.tweet) AS tweet,
-       array_agg(tto.created) AS created,
-       sum(tto.observed - tte.expected) AS numerator,
-       tte.expected AS expected
+       tto.tweet AS tweet,
+       tto.created AS created,
+       tto.observed as observed,
+       case when tte.expected = NULL then 0 else tte.expected
+       end as expected
 FROM tt_observed tto
 LEFT JOIN tt_expected tte
 ON tto.hashtag = tte.hashtag
-GROUP BY tto.hashtag, tte.expected
+),
+tt_obs_minus_exp AS
+(
+SELECT hashtag,
+       tweet,
+       created,
+       observed - expected AS numerator,
+       expected
+  FROM tt_obs_exp
 ),
 tt_fraction_setup AS
 (
@@ -43,10 +50,9 @@ SELECT hashtag,
        tweet,
        created,
        numerator * numerator AS numerator_squared,
-       case when expected = 0 then expected else expected
+       case when expected = 0 then expected + 1 else expected
        end as expected
   FROM tt_obs_minus_exp
- WHERE numerator > 0
 ),
 tt_chi AS
 (

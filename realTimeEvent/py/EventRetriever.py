@@ -8,6 +8,12 @@ import datetime
 class EventRetriever( object ):
 
     @staticmethod
+    def tryit():
+        get_url = EventRetriever().set_up_API_call()
+        EventRetriever().insertEvents( get_url )
+        EventDataBase.fn_update_is_event_cell()
+
+    @staticmethod
     def set_up_API_call():
 
         # This controls the time interval to pull tweets from the Raw Data Server

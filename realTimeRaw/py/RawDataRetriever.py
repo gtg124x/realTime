@@ -56,6 +56,15 @@ class RawDataRetriever( object ):
     #-----------------------------------------------------------------------
     tweet_iter = stream.statuses.sample()
 
+    # inside the permiter
+    # tweet_iter = stream.statuses.filter(locations = "-84.5,33.6,-84.25,33.92")
+
+    # Just ATL cell 2970_2294
+    #tweet_iter = stream.statuses.filter(locations = "-84.41,33.75,-84.38,33.79")
+
+    # USA
+    tweet_iter = stream.statuses.filter(locations = "-124.7771694, 24.520833, -66.947028, 49.384472")
+
     # Open Connection with Database
     conn = RawDataBase.connect()
 

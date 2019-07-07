@@ -38,19 +38,20 @@ class EventDataBase( object ):
         sql = """
         SELECT hashtag,
                tweet
-          FROM vw_events
+          FROM vw_event
          WHERE cell = %s;
         """
+        #print sql
         # create a cursor
         cur = conn.cursor()
         cur.execute(sql, (cell,))
         my_dict = {}
-        for event in cur:
-            if event is not None:
-                key = event[0]
-                [value] = event[1]
+        for key, value in cur:
+            if key is not None and value is not None:
+                # key = event[0]
+                # [value] = event[1]
                 my_dict[key] = value
-                print value
+                #print value
         cur.close()
         conn.close()
         return my_dict
