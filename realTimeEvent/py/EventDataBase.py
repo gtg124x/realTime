@@ -31,6 +31,23 @@ class EventDataBase( object ):
         cur.execute(sql, (hashtag, tweet, cell, created, id_str,))
         conn.commit()
 
+    @staticmethod
+    def get_totaltweets( cell, dtmin, dtmax ):
+        conn = EventDataBase.connect()
+        sql = """
+        SELECT COUNT(*)
+          FROM tb_event
+         WHERE cell = %s AND created BETWEEN %s AND %s
+        """
+        #print sql
+        # create a cursor
+        cur = conn.cursor()
+        cur.execute(sql, (cell, dtmin, dtmax))
+        row = cur.fetchone()
+        count = row[0]
+        cur.close()
+        conn.close()
+        return count 
 
     @staticmethod
     def get_EventList( cell ):
@@ -38,7 +55,7 @@ class EventDataBase( object ):
         sql = """
         SELECT hashtag,
                tweet
-          FROM vw_event
+          FROM tb_event
          WHERE cell = %s;
         """
         #print sql

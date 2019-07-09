@@ -42,7 +42,36 @@ class EventAPI( object ):
         return my_json
 
 
+    @app.route('/realTimeEvent/api/v1.0/totaltweets/<latitude>/<longitude>/<dt>', methods=['GET'])
+    def get_totaltweets(latitude=None, longitude=None, dt=None):
+
+        lat = 0
+        longit = 0
+
+        lat = float(latitude)
+        longit = float(longitude)
+
+
+        # cell calculations
+        row = int((90 + lat) * 24)
+        column = int((180 + longit) * 24)
+        cell = str(row) + "_" + str(column)
+
+        dtmin = dt + " 00:00:00"
+        dtmax = dt + " 23:59:59"
+
+        # get list of geo-tagged tweets (original info + cell)
+        count = EventDataBase.get_totaltweets( cell, dtmin, dtmax )
+
+        if count < 1:
+            count = 'no_events_for_cell'
+
+            #my_json_string = dict(my_list)
+
+        # convert to json because flask demands it
+        my_json = json.dumps(count)
+        return my_json
 
     # boiler plate
     if __name__ == '__main__':
-        app.run(debug=True)
+        app.run(debug=True, port=5000)
