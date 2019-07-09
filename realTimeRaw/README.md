@@ -59,10 +59,7 @@ curl -O https://raw.githubusercontent.com/ideoforms/python-twitter-examples/mast
 
 ## Modify config.py accordingly
 ```
-Consumer Key (API Key) = "WBv2tK1r07yKlqQohBnQXlFUe"
-Consumer Secret (API Secret) = "2o5bxMkhvlQnA1s6K3TkBPaS2EXSGf6jjwBVzvsKqT3VrTdWvq"
-Access Token API Key = "2478905953-wzRnECJQwmsUo6wuMdR78CHGw8OeXWIQcR2a5Fr"
-Access Token Secret = "YxzfAy2elUUnxA95pcGB4YZSmispN6xbGlXspoyvzoJim"
+
 ```
 
 ## Download realTimeRaw.py
