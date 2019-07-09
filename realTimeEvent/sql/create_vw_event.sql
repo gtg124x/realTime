@@ -72,7 +72,9 @@ SELECT ttc.hashtag,
        ttc.numerator_squared,
        ttc.expected,
        ttc.chi,
-       tbe.cell
+       tbe.cell,
+       tbe.latitude,
+       tbe.longitude
   FROM tt_chi ttc
 LEFT JOIN tb_event tbe
      ON ttc.hashtag = tbe.hashtag
@@ -88,7 +90,9 @@ SELECT hashtag,
 )
 SELECT tte.hashtag,
        tte.tweet,
-       tte.cell
+       tte.cell,
+       tte.latitude,
+       tte.longitude
   FROM tt_events tte
   inner join tt_current_events ttce
  on tte.hashtag = ttce.hashtag

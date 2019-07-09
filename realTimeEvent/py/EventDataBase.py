@@ -20,15 +20,15 @@ class EventDataBase( object ):
 
 
     @staticmethod
-    def insert_tb_event( conn, hashtag, tweet, cell, created, id_str ):
+    def insert_tb_event( conn, hashtag, tweet, cell, created, id_str, latitude, longitude ):
         sql = """
-                INSERT INTO tb_event(hashtag, tweet, cell, created, id_str )
-                     VALUES (%s, %s, %s, %s, %s)
+                INSERT INTO tb_event(hashtag, tweet, cell, created, id_str, latitude, longitude )
+                     VALUES (%s, %s, %s, %s, %s, %s, %s)
                 ON CONFLICT (id_str) DO NOTHING;
               """
         # create a cursor
         cur = conn.cursor()
-        cur.execute(sql, (hashtag, tweet, cell, created, id_str,))
+        cur.execute(sql, (hashtag, tweet, cell, created, id_str, latitude, longitude))
         conn.commit()
 
 
@@ -37,24 +37,33 @@ class EventDataBase( object ):
         conn = EventDataBase.connect()
         sql = """
         SELECT hashtag,
-               tweet
-          FROM vw_event
-         WHERE cell = %s;
+               tweet,
+               latitude,
+               longitude
+          FROM vw_event;
+
         """
+        #WHERE cell = %s;
         #print sql
         # create a cursor
         cur = conn.cursor()
         cur.execute(sql, (cell,))
-        my_dict = {}
-        for key, value in cur:
-            if key is not None and value is not None:
-                # key = event[0]
-                # [value] = event[1]
-                my_dict[key] = value
-                #print value
+        my_list = []
+
+        for row in cur:
+            temp_dict = {}
+            hashtag = row[0]
+            tweets = row[1]
+            latitude = row[2]
+            longitude = row[3]
+            temp_dict["hashtag"] = hashtag
+            temp_dict["tweets"] = tweets
+            temp_dict["latitude"] = latitude
+            temp_dict["longitude"] = longitude
+            my_list.append(temp_dict)
         cur.close()
         conn.close()
-        return my_dict
+        return my_list
 
     @staticmethod
     def end_connect(conn):

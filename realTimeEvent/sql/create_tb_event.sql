@@ -15,6 +15,8 @@ CREATE TABLE tb_event (
     created TIMESTAMP,
     is_event_cell BOOLEAN DEFAULT 'f',
     inserted TIMESTAMP DEFAULT NOW(),
-    id_str VARCHAR UNIQUE
+    id_str VARCHAR UNIQUE,
+    latitude VARCHAR,
+    longitude VARCHAR
 );
 
