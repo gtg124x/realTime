@@ -14,7 +14,7 @@ from EventDataBase import *
 
 class EventAPI( object ):
 
-    @app.route('/realTimeEvent/api/v1.0/<latitude>/<longitude>', methods=['GET'])
+    @app.route('/realTimeEvent/api/v2.0/<latitude>/<longitude>', methods=['GET'])
     def get_tasks(latitude=None, longitude=None):
 
         lat = 0
