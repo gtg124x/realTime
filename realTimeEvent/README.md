@@ -31,12 +31,12 @@ chmod a+x EventAPI.py
 ```
 
 ## The REST API Format
-**The url is  http://localhost:5000/realTimeEvent/api/v1.0/latitude/longitude**<br />
+**The url is  http://localhost:6000/realTimeEvent/api/v2.0/latitude/longitude**<br />
 Input: latitude, longitude<br />
 Output: events (event_id (hashtag) + corresponding tweets + latitude + longitude) for a given cell<br />
 An example is for atlanta is...<br />
 ```
-http://localhost:6000/realTimeEvent/api/v1.0/33.755/-84.39
+http://localhost:6000/realTimeEvent/api/v2.0/33.755/-84.39
 ```
 You will receive back a json that is formatted like the following...<br />
 ```
@@ -60,6 +60,6 @@ An Example is...<br />
 
 <br />
 For debugging, the following redirects the output to a file on the desktop<br />
-curl -o ~/Desktop/file.json http://localhost:6000/realTimeEvent/api/v1.0/33.755/-84.39<br />
+curl -o ~/Desktop/file.json http://localhost:6000/realTimeEvent/api/v2.0/33.755/-84.39<br />
 
 
