@@ -57,11 +57,6 @@ pip install configparser
 curl -O https://raw.githubusercontent.com/ideoforms/python-twitter-examples/master/config.py
 ```
 
-## Modify config.py accordingly
-```
-
-```
-
 ## Download realTimeRaw.py
 ```
 git clone https://github.com/gtg124x/realTimeRaw.git

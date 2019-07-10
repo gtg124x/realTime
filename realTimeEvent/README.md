@@ -16,11 +16,13 @@ psql eventdb
 \i ~/realTime/realTimeEvent/sql/create_vw_event.sql
 ```
 
-## In a seperate terminal, This gets executed ever hour...
-**EventRetriever (processes raw data into events, puts them into database) and marks if event belongs to cell**<br />
+## In a seperate terminal, Run the jobScheduler.py
+**This runs the EventRetriever (processes raw data into events, puts them into database) and marks if event belongs to cell each hour (real time is 1 hour)**<br />
+**jobScheduler runs this script every hour**<br />
 ```
 chmod a+x EventRetriever.py
-./EventRetriever.py
+chmod a+x jobScheduler.py
+./jobScheduler.py
 ```
 
 ## In a seperate termininal, Make the API executable and Run it
@@ -31,21 +33,49 @@ chmod a+x EventAPI.py
 ```
 
 ## The REST API Format
-**The url is  http://localhost:5000/realTimeEvent/api/v1.0/latitude/longitude**<br />
+**The url for a cell is  http://localhost:6000/realTimeEvent/api/v2.1/latitude/longitude**<br />
 Input: latitude, longitude<br />
-Output: events (event_id (hashtag) + corresponding tweets) for a given cell<br />
-An example is for atlanta is...<br />
+Output: events (event_id (hashtag) + corresponding tweets + latitude + longitude) for a given cell<br />
+<br />
+**The url to get a region using a cell and a radius is http://localhost:6000/realTimeEvent/api/v2.1/latitude/longitude/radius**<br />
+Input: latitude, longitude, radius(in miles)<br />
+Output: events (event_id (hashtag) + corresponding tweets + latitude + longitude) for a given radius surrounding a cell<br />
+
+An example of just getting events for a cell in atlanta is...<br />
 ```
-http://localhost:5000/realTimeEvent/api/v1.0/33.755/-84.39
-```
-You will receive back a json that is formatted like the following...<br />
-```
-{"endorphins": ["I just finished mountain biking 8.98 km in 38m:50s with #Endomondo #endorphins null", "I just finished running 8.67 km in 1h:00m:01s with #Endomondo #endorphins null", "I just finished cycling 12.75 km in 42m:31s with #Endomondo #endorphins null", "I just finished cycling 14.45 miles in 1h:08m:42s with #Endomondo #endorphins null"], "Endomondo": ["I just finished cycling 12.75 km in 42m:31s with #Endomondo #endorphins null", "I just finished cycling 14.45 miles in 1h:08m:42s with #Endomondo #endorphins null", "I just finished mountain biking 8.98 km in 38m:50s with #Endomondo #endorphins null", "I just finished running 8.67 km in 1h:00m:01s with #Endomondo #endorphins null"]}
+http://localhost:6000/realTimeEvent/api/v2.1/33.755/-84.39
 ```
 
-In this case the keys (event_ids) were "endorphins" and "Endomondo", and the values were an array of tweets for that event_id. <br />
+An example of just getting events for a region with a 20 miles radius surrounding a cell in atlanta is...<br />
+```
+http://localhost:6000/realTimeEvent/api/v2.1/33.755/-84.39/20
+```
+
+You will receive back a json that is formatted like the following...<br />
+```
+[ { "hashtag" :
+    "tweets" :
+    "latitude" :
+    "longitude" : },
+  { "hashtag" :
+    "tweets" :
+    "latitude" :
+    "longitude" : },
+        .
+        .
+        .
+]
+```
+An Example is...<br />
+```
+[{"tweets": ["It\u2019s our honor to swear in @KsandvikBESD33 as AASA 2019-20 President-Elect! Congratulations, Kristi! #AASAadv https://t.co/Jh8ikggUu2", "Look at all of our new Executive Committee Members! Congratulations and thank you for your service #AASAadv https://t.co/da9rW7Ohna"], "latitude": "38.801826", "longitude": "-77.119401", "hashtag": "AASAadv"}, {"tweets": ["We're hiring! Read about our latest job opening here: Network Engineer, Mid - https://t.co/tf6QYbPV8e #BoozAllen #IT", "Interested in a job in Annapolis Junction, MD? This could be a great fit: https://t.co/nQ1Sox8Oys #BoozAllen #Finance"], "latitude": "39.1202934", "longitude": "-76.7769324", "hashtag": "BoozAllen"}]
+```
+
 <br />
 For debugging, the following redirects the output to a file on the desktop<br />
-curl -o ~/Desktop/file.json http://localhost:5000/realTimeEvent/api/v1.0/33.755/-84.39<br />
+curl -o ~/Desktop/file.json http://localhost:6000/realTimeEvent/api/v2.1/33.755/-84.39<br />
+
+
+
 
 

@@ -14,7 +14,22 @@ from EventDataBase import *
 
 class EventAPI( object ):
 
-    @app.route('/realTimeEvent/api/v1.0/<latitude>/<longitude>', methods=['GET'])
+    @app.route('/realTimeEvent/api/v2.1/<latitude>/<longitude>/<radius>', methods=['GET'])
+    def get_tasks2(latitude=None, longitude=None, radius=None):
+
+        # get list of geo-tagged tweets
+        my_dict = EventDataBase.get_EventList_radius( latitude, longitude, radius )
+
+        if my_dict is None:
+            my_dict = 'no_events_for_cell'
+
+        # convert to json because flask demands it
+        my_json = json.dumps(my_dict)
+        return my_json
+
+
+
+    @app.route('/realTimeEvent/api/v2.1/<latitude>/<longitude>', methods=['GET'])
     def get_tasks(latitude=None, longitude=None):
 
         lat = 0
@@ -34,8 +49,6 @@ class EventAPI( object ):
 
         if my_dict is None:
             my_dict = 'no_events_for_cell'
-
-            #my_json_string = dict(my_list)
 
         # convert to json because flask demands it
         my_json = json.dumps(my_dict)
@@ -131,4 +144,4 @@ class EventAPI( object ):
 
     # boiler plate
     if __name__ == '__main__':
-        app.run(debug=True, port=5000)
+        app.run(debug=True, port=6000)

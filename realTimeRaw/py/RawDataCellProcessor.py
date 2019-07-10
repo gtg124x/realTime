@@ -58,6 +58,8 @@ class RawDataCellProcessor( object ):
         now                = datetime.datetime.now()
         now_str            = str(now)
         tweet["created"] = now_str
+        tweet["raw_latitude"] = latitude
+        tweet["raw_longitude"] = longitude
 
         return tweet
 
