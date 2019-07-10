@@ -31,6 +31,52 @@ class EventDataBase( object ):
         cur.execute(sql, (hashtag, tweet, cell, created, id_str, latitude, longitude))
         conn.commit()
 
+    @staticmethod
+    def get_EventList_radius(latitude, longitude, radius):
+        conn = EventDataBase.connect()
+        radius = float(radius)
+        latitude = float(latitude)
+        longitude = float(longitude)
+
+        #.1 decimal degree == 6.9 miles
+        shift = (radius * 0.1) / 6.9
+
+        latitude_top = latitude + shift
+        latitude_bottom = latitude - shift
+        longitude_left = longitude - shift
+        longitude_right = longitude + shift
+
+        sql = """
+        SELECT hashtag,
+               tweet,
+               latitude,
+               longitude
+          FROM vw_event
+         WHERE (latitude::double precision >= %s AND latitude::double precision <= %s)
+           AND (longitude::double precision >= %s AND longitude::double precision <= %s);
+        """
+
+        cur = conn.cursor()
+        cur.execute(sql, (latitude_bottom, latitude_top, longitude_left, longitude_right,))
+
+        my_list = []
+
+        for row in cur:
+            temp_dict = {}
+            hashtag = row[0]
+            tweets = row[1]
+            latitude = row[2]
+            longitude = row[3]
+            temp_dict["hashtag"] = hashtag
+            temp_dict["tweets"] = tweets
+            temp_dict["latitude"] = latitude
+            temp_dict["longitude"] = longitude
+            my_list.append(temp_dict)
+        cur.close()
+        conn.close()
+        return my_list
+
+
 
     @staticmethod
     def get_EventList( cell ):
@@ -40,14 +86,13 @@ class EventDataBase( object ):
                tweet,
                latitude,
                longitude
-          FROM vw_event;
-
+          FROM vw_event
+         WHERE cell = %s;
         """
-        #WHERE cell = %s;
-        #print sql
         # create a cursor
         cur = conn.cursor()
         cur.execute(sql, (cell,))
+
         my_list = []
 
         for row in cur:
