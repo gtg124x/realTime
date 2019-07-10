@@ -55,8 +55,8 @@ class EventAPI( object ):
         return my_json
 
 
-    @app.route('/realTimeEvent/api/v2.1/topevents/<latitude>/<longitude>', methods=['GET'])
-    def get_topEvents(latitude=None, longitude=None):
+    @app.route('/realTimeEvent/api/v2.1/topevents/<latitude>/<longitude>/<dt>', methods=['GET'])
+    def get_topEvents(latitude=None, longitude=None, dt=None):
 
         lat = 0
         longit = 0
@@ -70,8 +70,11 @@ class EventAPI( object ):
         column = int((180 + longit) * 24)
         cell = str(row) + "_" + str(column)
 
+        dtmin = dt + " 00:00:00"
+        dtmax = dt + " 23:59:59"
+
         # get list of geo-tagged tweets (original info + cell)
-        my_dict = EventDataBase.get_topEvents( cell )
+        my_dict = EventDataBase.get_topEvents( cell, dtmin, dtmax )
 
         if my_dict is None:
             my_dict = 'no_events_for_cell'

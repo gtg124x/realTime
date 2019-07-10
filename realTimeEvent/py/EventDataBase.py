@@ -148,19 +148,19 @@ class EventDataBase( object ):
         return my_list
 
     @staticmethod
-    def get_topEvents( cell ):
+    def get_topEvents( cell, dtmin, dtmax ):
         conn = EventDataBase.connect()
         sql = """
         SELECT hashtag,
                tweet,
                latitude,
                longitude
-          FROM vw_event
-         WHERE cell = %s;
+          FROM tb_event
+        WHERE cell = %s AND created BETWEEN %s AND %s
         """
         # create a cursor
         cur = conn.cursor()
-        cur.execute(sql, (cell,))
+        cur.execute(sql, (cell, dtmin, dtmax))
         events = {}
 
         for row in cur:
