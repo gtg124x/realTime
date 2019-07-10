@@ -13,7 +13,7 @@ from RawDataBase import *
 
 class RawDataAPI( object ):
 
-    @app.route('/realTimeRaw/api/v2.0/<start>/<end>', methods=['GET'])
+    @app.route('/realTimeRaw/api/v2.1/<start>/<end>', methods=['GET'])
     def get_tasks(start=None, end=None):
 
 
