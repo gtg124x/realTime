@@ -6,6 +6,8 @@ import json
 
 from configparser import ConfigParser
 
+from flask_caching import Cache
+cache = Cache()
 
 class EventDataBase( object ):
 
@@ -32,6 +34,7 @@ class EventDataBase( object ):
         conn.commit()
 
     @staticmethod
+    @cache.memoize()
     def get_totaltweets( cell, dtmin, dtmax ):
         conn = EventDataBase.connect()
         sql = """
@@ -84,6 +87,7 @@ class EventDataBase( object ):
         return msg 
 
     @staticmethod
+    @cache.memoize()
     def get_totalevents( cell, dtmin, dtmax ):
         conn = EventDataBase.connect()
         sql = """
@@ -182,6 +186,7 @@ class EventDataBase( object ):
 
 
     @staticmethod
+    @cache.memoize()
     def get_EventList( cell ):
         conn = EventDataBase.connect()
         sql = """
@@ -214,6 +219,7 @@ class EventDataBase( object ):
         return my_list
 
     @staticmethod
+    @cache.memoize()
     def get_topEvents( cell, dtmin, dtmax ):
         conn = EventDataBase.connect()
         sql = """

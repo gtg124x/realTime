@@ -6,6 +6,14 @@
 from flask import Flask, jsonify, request
 app = Flask(__name__)
 
+from flask_caching import Cache
+from EventDataBase import cache
+config = {
+    "CACHE_TYPE": "simple",
+    "CACHE_DEFAULT_TIMEOUT": 5
+}
+cache.init_app(app, config)
+
 #-----------------------------------------------------------------------
 # Function for getting events
 #-----------------------------------------------------------------------
