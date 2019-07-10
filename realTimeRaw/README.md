@@ -47,6 +47,7 @@ source venv2.7/bin/activate
 pip install twitter
 virtualenv flask
 pip install flask
+pip install Flask-Caching
 pip install postgresql
 pip install psycopg2-binary
 pip install configparser
