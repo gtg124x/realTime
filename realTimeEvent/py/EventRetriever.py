@@ -25,7 +25,7 @@ class EventRetriever( object ):
         end_url   = now.strftime("%Y-%m-%d_%H:%M")
 
         # The agreed upon API
-        get_url = "http://localhost:6000/realTimeRaw/api/v2.0/" + start_url + "/" + end_url
+        get_url = "http://localhost:5000/realTimeRaw/api/v2.0/" + start_url + "/" + end_url
 
         print get_url
 
