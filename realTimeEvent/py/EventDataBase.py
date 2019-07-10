@@ -32,6 +32,41 @@ class EventDataBase( object ):
         conn.commit()
 
     @staticmethod
+    def get_totaltweets( cell, dtmin, dtmax ):
+        conn = EventDataBase.connect()
+        sql = """
+        SELECT COUNT(*)
+          FROM tb_event
+         WHERE cell = %s AND created BETWEEN %s AND %s
+        """
+        #print sql
+        # create a cursor
+        cur = conn.cursor()
+        cur.execute(sql, (cell, dtmin, dtmax))
+        row = cur.fetchone()
+        count = row[0]
+        cur.close()
+        conn.close()
+        return count 
+
+    @staticmethod
+    def get_totalevents( cell, dtmin, dtmax ):
+        conn = EventDataBase.connect()
+        sql = """
+        SELECT COUNT(DISTINCT hashtag)
+          FROM tb_event
+         WHERE cell = %s AND created BETWEEN %s AND %s
+        """
+        #print sql
+        # create a cursor
+        cur = conn.cursor()
+        cur.execute(sql, (cell, dtmin, dtmax))
+        row = cur.fetchone()
+        count = row[0]
+        cur.close()
+        conn.close()
+        return count 
+
     def get_EventList_radius(latitude, longitude, radius):
         conn = EventDataBase.connect()
         radius = float(radius)
@@ -77,7 +112,6 @@ class EventDataBase( object ):
         return my_list
 
 
-
     @staticmethod
     def get_EventList( cell ):
         conn = EventDataBase.connect()
@@ -109,6 +143,35 @@ class EventDataBase( object ):
         cur.close()
         conn.close()
         return my_list
+
+    @staticmethod
+    def get_topEvents( cell ):
+        conn = EventDataBase.connect()
+        sql = """
+        SELECT hashtag,
+               tweet
+          FROM tb_event
+         WHERE cell = %s;
+        """
+        # create a cursor
+        cur = conn.cursor()
+        cur.execute(sql, (cell,))
+        events = {}
+
+        for row in cur:
+            hashtag = row[0]
+            tweets = row[1]
+            if hashtag not in events.keys():
+                events[hashtag] = [tweets]
+            else:
+                events[hashtag].append(tweets)
+
+        toptweets = max(len(i) for i in events.values())
+        topevents = [key for key, i in events.items() if len(i) == toptweets and len(i) >= 2]
+        
+        cur.close()
+        conn.close()
+        return topevents 
 
     @staticmethod
     def end_connect(conn):
