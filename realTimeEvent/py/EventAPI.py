@@ -14,7 +14,7 @@ from EventDataBase import *
 
 class EventAPI( object ):
 
-    @app.route('/realTimeEvent/api/v2.0/<latitude>/<longitude>/<radius>', methods=['GET'])
+    @app.route('/realTimeEvent/api/v2.1/<latitude>/<longitude>/<radius>', methods=['GET'])
     def get_tasks2(latitude=None, longitude=None, radius=None):
 
         # get list of geo-tagged tweets
@@ -29,7 +29,7 @@ class EventAPI( object ):
 
 
 
-    @app.route('/realTimeEvent/api/v2.0/<latitude>/<longitude>', methods=['GET'])
+    @app.route('/realTimeEvent/api/v2.1/<latitude>/<longitude>', methods=['GET'])
     def get_tasks(latitude=None, longitude=None):
 
         lat = 0
