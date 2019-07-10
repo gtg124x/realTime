@@ -31,13 +31,24 @@ chmod a+x EventAPI.py
 ```
 
 ## The REST API Format
-**The url is  http://localhost:6000/realTimeEvent/api/v2.0/latitude/longitude**<br />
+**The url for a cell is  http://localhost:6000/realTimeEvent/api/v2.0/latitude/longitude**<br />
 Input: latitude, longitude<br />
 Output: events (event_id (hashtag) + corresponding tweets + latitude + longitude) for a given cell<br />
-An example is for atlanta is...<br />
+<br />
+**The url to get a cell and its radius  http://localhost:6000/realTimeEvent/api/v2.0/latitude/longitude/radius**<br />
+Input: latitude, longitude, radius(in miles)<br />
+Output: events (event_id (hashtag) + corresponding tweets + latitude + longitude) for a given radius surrounding a cell<br />
+
+An example of just getting events for a cell in atlanta is...<br />
 ```
-http://localhost:6000/realTimeEvent/api/v2.0/33.755/-84.39
+http://localhost:6000/realTimeEvent/api/v2.1/33.755/-84.39
 ```
+
+An example of just getting events for a region with a 20 miles radius surrounding a cell in atlanta is...<br />
+```
+http://localhost:6000/realTimeEvent/api/v2.1/33.755/-84.39/20
+```
+
 You will receive back a json that is formatted like the following...<br />
 ```
 [ { "hashtag" :
@@ -60,6 +71,9 @@ An Example is...<br />
 
 <br />
 For debugging, the following redirects the output to a file on the desktop<br />
-curl -o ~/Desktop/file.json http://localhost:6000/realTimeEvent/api/v2.0/33.755/-84.39<br />
+curl -o ~/Desktop/file.json http://localhost:6000/realTimeEvent/api/v2.1/33.755/-84.39<br />
+
+
+
 
 
