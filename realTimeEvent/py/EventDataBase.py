@@ -47,7 +47,8 @@ class EventDataBase( object ):
         count = row[0]
         cur.close()
         conn.close()
-        return count 
+        msg = { "count": count }
+        return msg 
 
     @staticmethod
     def get_totalevents( cell, dtmin, dtmax ):
@@ -65,7 +66,8 @@ class EventDataBase( object ):
         count = row[0]
         cur.close()
         conn.close()
-        return count 
+        msg = { "count": count }
+        return msg 
 
     @staticmethod
     def get_EventList_radius(latitude, longitude, radius):
@@ -150,8 +152,10 @@ class EventDataBase( object ):
         conn = EventDataBase.connect()
         sql = """
         SELECT hashtag,
-               tweet
-          FROM tb_event
+               tweet,
+               latitude,
+               longitude
+          FROM vw_event
          WHERE cell = %s;
         """
         # create a cursor
@@ -160,15 +164,26 @@ class EventDataBase( object ):
         events = {}
 
         for row in cur:
+            event_obj = {}
             hashtag = row[0]
-            tweets = row[1]
+            tweet = row[1]
+            latitude = row[2]
+            longitude = row[3]
             if hashtag not in events.keys():
-                events[hashtag] = [tweets]
+                events[hashtag] = {}
+                events[hashtag]["hashtag"] = hashtag
+                events[hashtag]["tweets"] = [tweet]
+                events[hashtag]["latitude"] = latitude
+                events[hashtag]["longitude"] = longitude
             else:
-                events[hashtag].append(tweets)
+                events[hashtag]["tweets"].append(tweet)
 
-        toptweets = max(len(i) for i in events.values())
-        topevents = [key for key, i in events.items() if len(i) == toptweets and len(i) >= 2]
+        toptweets = max(len(i["tweets"]) for i in events.values())
+        topevents = []
+        for i in events.keys():
+            if len(events[i]["tweets"]) == toptweets and len(events[i]["tweets"]) >= 1:
+                topevents.append(events[i])
+        topevents = topevents[:10]
         
         cur.close()
         conn.close()
