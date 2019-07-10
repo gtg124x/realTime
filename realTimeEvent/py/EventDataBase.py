@@ -178,12 +178,14 @@ class EventDataBase( object ):
             else:
                 events[hashtag]["tweets"].append(tweet)
 
-        toptweets = max(len(i["tweets"]) for i in events.values())
+        tweetnums = ([len(i["tweets"]) for i in events.values()])
         topevents = []
-        for i in events.keys():
-            if len(events[i]["tweets"]) == toptweets and len(events[i]["tweets"]) >= 1:
-                topevents.append(events[i])
-        topevents = topevents[:10]
+        if tweetnums != []:
+            toptweets = max(tweetnums)
+            for i in events.keys():
+                if len(events[i]["tweets"]) == toptweets and len(events[i]["tweets"]) >= 1:
+                    topevents.append(events[i])
+            topevents = topevents[:10]
         
         cur.close()
         conn.close()
