@@ -51,6 +51,39 @@ class EventDataBase( object ):
         return msg 
 
     @staticmethod
+    def get_totaltweets_radius( latitude, longitude, radius, dtmin, dtmax ):
+        radius = float(radius)
+        latitude = float(latitude)
+        longitude = float(longitude)
+
+        #.1 decimal degree == 6.9 miles
+        shift = (radius * 0.1) / 6.9
+
+        latitude_top = latitude + shift
+        latitude_bottom = latitude - shift
+        longitude_left = longitude - shift
+        longitude_right = longitude + shift
+
+        conn = EventDataBase.connect()
+        sql = """
+        SELECT COUNT(*)
+          FROM tb_event
+         WHERE (latitude::double precision >= %s AND latitude::double precision <= %s)
+           AND (longitude::double precision >= %s AND longitude::double precision <= %s)
+           AND created BETWEEN %s AND %s;
+        """
+        #print sql
+        # create a cursor
+        cur = conn.cursor()
+        cur.execute(sql, (latitude_bottom, latitude_top, longitude_left, longitude_right, dtmin, dtmax))
+        row = cur.fetchone()
+        count = row[0]
+        cur.close()
+        conn.close()
+        msg = { "count": count }
+        return msg 
+
+    @staticmethod
     def get_totalevents( cell, dtmin, dtmax ):
         conn = EventDataBase.connect()
         sql = """
@@ -68,6 +101,39 @@ class EventDataBase( object ):
         conn.close()
         msg = { "count": count }
         return msg 
+
+    @staticmethod
+    def get_totalevents_radius( latitude, longitude, radius, dtmin, dtmax ):
+        conn = EventDataBase.connect()
+        radius = float(radius)
+        latitude = float(latitude)
+        longitude = float(longitude)
+
+        #.1 decimal degree == 6.9 miles
+        shift = (radius * 0.1) / 6.9
+
+        latitude_top = latitude + shift
+        latitude_bottom = latitude - shift
+        longitude_left = longitude - shift
+        longitude_right = longitude + shift
+        sql = """
+        SELECT COUNT(DISTINCT hashtag)
+           FROM tb_event
+         WHERE (latitude::double precision >= %s AND latitude::double precision <= %s)
+          AND (longitude::double precision >= %s AND longitude::double precision <= %s)
+          AND created BETWEEN %s AND %s;
+        """
+        #print sql
+        # create a cursor
+        cur = conn.cursor()
+        cur.execute(sql, (latitude_bottom, latitude_top, longitude_left, longitude_right, dtmin, dtmax))
+        row = cur.fetchone()
+        count = row[0]
+        cur.close()
+        conn.close()
+        msg = { "count": count }
+        return msg
+
 
     @staticmethod
     def get_EventList_radius(latitude, longitude, radius):
@@ -161,6 +227,64 @@ class EventDataBase( object ):
         # create a cursor
         cur = conn.cursor()
         cur.execute(sql, (cell, dtmin, dtmax))
+        events = {}
+
+        for row in cur:
+            event_obj = {}
+            hashtag = row[0]
+            tweet = row[1]
+            latitude = row[2]
+            longitude = row[3]
+            if hashtag not in events.keys():
+                events[hashtag] = {}
+                events[hashtag]["hashtag"] = hashtag
+                events[hashtag]["tweets"] = [tweet]
+                events[hashtag]["latitude"] = latitude
+                events[hashtag]["longitude"] = longitude
+            else:
+                events[hashtag]["tweets"].append(tweet)
+
+        tweetnums = ([len(i["tweets"]) for i in events.values()])
+        topevents = []
+        if tweetnums != []:
+            toptweets = max(tweetnums)
+            for i in events.keys():
+                if len(events[i]["tweets"]) == toptweets and len(events[i]["tweets"]) >= 1:
+                    topevents.append(events[i])
+            topevents = topevents[:10]
+        
+        cur.close()
+        conn.close()
+        return topevents 
+
+    @staticmethod
+    def get_topEvents_radius( latitude, longitude, radius, dtmin, dtmax ):
+        radius = float(radius)
+        latitude = float(latitude)
+        longitude = float(longitude)
+
+        #.1 decimal degree == 6.9 miles
+        shift = (radius * 0.1) / 6.9
+
+        latitude_top = latitude + shift
+        latitude_bottom = latitude - shift
+        longitude_left = longitude - shift
+        longitude_right = longitude + shift
+
+        conn = EventDataBase.connect()
+        sql = """
+        SELECT hashtag,
+               tweet,
+               latitude,
+               longitude
+          FROM tb_event
+         WHERE (latitude::double precision >= %s AND latitude::double precision <= %s)
+           AND (longitude::double precision >= %s AND longitude::double precision <= %s)
+           AND created BETWEEN %s AND %s;
+        """
+        # create a cursor
+        cur = conn.cursor()
+        cur.execute(sql, (latitude_bottom, latitude_top, longitude_left, longitude_right, dtmin, dtmax))
         events = {}
 
         for row in cur:
