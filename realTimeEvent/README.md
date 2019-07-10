@@ -16,11 +16,13 @@ psql eventdb
 \i ~/realTime/realTimeEvent/sql/create_vw_event.sql
 ```
 
-## In a seperate terminal, This gets executed ever hour...
-**EventRetriever (processes raw data into events, puts them into database) and marks if event belongs to cell**<br />
+## In a seperate terminal, Run the jobScheduler.py
+**This runs the EventRetriever (processes raw data into events, puts them into database) and marks if event belongs to cell each hour (real time is 1 hour)**<br />
+**jobScheduler runs this script every hour**<br />
 ```
 chmod a+x EventRetriever.py
-./EventRetriever.py
+chmod a+x jobScheduler.py
+./jobScheduler.py
 ```
 
 ## In a seperate termininal, Make the API executable and Run it
