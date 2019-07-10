@@ -67,6 +67,7 @@ class EventDataBase( object ):
         conn.close()
         return count 
 
+    @staticmethod
     def get_EventList_radius(latitude, longitude, radius):
         conn = EventDataBase.connect()
         radius = float(radius)

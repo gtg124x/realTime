@@ -55,7 +55,7 @@ class EventAPI( object ):
         return my_json
 
 
-    @app.route('/realTimeEvent/api/v1.0/topevents/<latitude>/<longitude>', methods=['GET'])
+    @app.route('/realTimeEvent/api/v2.1/topevents/<latitude>/<longitude>', methods=['GET'])
     def get_topEvents(latitude=None, longitude=None):
 
         lat = 0
@@ -82,7 +82,7 @@ class EventAPI( object ):
         my_json = json.dumps(my_dict)
         return my_json
 
-    @app.route('/realTimeEvent/api/v1.0/totaltweets/<latitude>/<longitude>/<dt>', methods=['GET'])
+    @app.route('/realTimeEvent/api/v2.1/totaltweets/<latitude>/<longitude>/<dt>', methods=['GET'])
     def get_totaltweets(latitude=None, longitude=None, dt=None):
 
         lat = 0
@@ -112,7 +112,7 @@ class EventAPI( object ):
         my_json = json.dumps(count)
         return my_json
 
-    @app.route('/realTimeEvent/api/v1.0/totalevents/<latitude>/<longitude>/<dt>', methods=['GET'])
+    @app.route('/realTimeEvent/api/v2.1/totalevents/<latitude>/<longitude>/<dt>', methods=['GET'])
     def get_totalevents(latitude=None, longitude=None, dt=None):
 
         lat = 0
