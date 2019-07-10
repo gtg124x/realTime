@@ -37,7 +37,7 @@ chmod a+x EventAPI.py
 Input: latitude, longitude<br />
 Output: events (event_id (hashtag) + corresponding tweets + latitude + longitude) for a given cell<br />
 <br />
-**The url to get a cell and its radius  http://localhost:6000/realTimeEvent/api/v2.1/latitude/longitude/radius**<br />
+**The url to get a region using a cell and a radius is http://localhost:6000/realTimeEvent/api/v2.1/latitude/longitude/radius**<br />
 Input: latitude, longitude, radius(in miles)<br />
 Output: events (event_id (hashtag) + corresponding tweets + latitude + longitude) for a given radius surrounding a cell<br />
 
