@@ -4,15 +4,80 @@
 # flask is used for the REST API
 #-----------------------------------------------------------------------
 from flask import Flask, jsonify, request
+from flask import g, url_for, redirect, abort, Response
 app = Flask(__name__)
 
+# caching
 from flask_caching import Cache
 from EventDataBase import cache
-config = {
-    "CACHE_TYPE": "simple",
+cache.init_app(app, config={
+    "CACHE_TYPE": "redis",
     "CACHE_DEFAULT_TIMEOUT": 5
-}
-cache.init_app(app, config)
+})
+
+from functools import wraps
+import datetime
+import jwt
+import bcrypt
+import redis
+import os
+from config import *
+r = redis.Redis(host="127.0.0.1", port=6379, db=0)
+
+@app.route("/")
+def status():
+    return jsonify({}), 200
+
+#-----------------------------------------------------------------------
+# Functions for Authentication
+#-----------------------------------------------------------------------
+@app.errorhandler(401)
+def unauthorized(error):
+    return jsonify({}), 401
+
+def authcheck(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        if AUTH_ENABLED:
+            g.claims = 0
+            try:
+                g.claims = jwt.decode(
+                    request.headers['Authorization'].replace("Bearer ", ""),
+                    SECRET_KEY,
+                    algorithm='HS256')
+            except:
+                abort(401, 'test')
+        return f(*args, **kwargs)
+    return wrapper
+
+@app.route("/register", methods=['POST'])
+def register():
+    json = request.get_json()
+    hash = bcrypt.hashpw(json['password'].encode("utf8"), bcrypt.gensalt())
+    ukey = "user:" + json['username']
+    uval = { "hash": hash, "created": str(datetime.datetime.now()) }
+    r.hmset(ukey, uval)
+    return jsonify()
+
+@app.route("/login", methods=['POST'])
+def login():
+    json = request.get_json()
+    userhash = r.hget("user:" + json['username'], "hash")
+    if bcrypt.checkpw(json['password'].encode("utf8"), userhash):
+        claims = {
+            "username": json['username'],
+            "exp": datetime.datetime.utcnow() + datetime.timedelta(days=1),
+            "iat": datetime.datetime.utcnow()
+        }
+        enc = jwt.encode(claims, SECRET_KEY, algorithm='HS256')
+        return jsonify({ "token": enc })
+    return jsonify({ "msg": "Invalid username or password" }, 401)
+
+@app.route("/auth", methods=['GET'])
+@authcheck
+def auth():
+    return jsonify(), 200
+
 
 #-----------------------------------------------------------------------
 # Function for getting events
@@ -23,6 +88,7 @@ from EventDataBase import *
 class EventAPI( object ):
 
     @app.route('/realTimeEvent/api/v2.1/<latitude>/<longitude>/<radius>', methods=['GET'])
+    @authcheck
     def get_tasks2(latitude=None, longitude=None, radius=None):
 
         # get list of geo-tagged tweets
@@ -38,6 +104,7 @@ class EventAPI( object ):
 
 
     @app.route('/realTimeEvent/api/v2.1/<latitude>/<longitude>', methods=['GET'])
+    @authcheck
     def get_tasks(latitude=None, longitude=None):
 
         lat = 0
@@ -64,6 +131,7 @@ class EventAPI( object ):
 
 
     @app.route('/realTimeEvent/api/v2.1/topevents/<latitude>/<longitude>/<dt>', methods=['GET'])
+    @authcheck
     def get_topEvents(latitude=None, longitude=None, dt=None):
 
         lat = 0
@@ -94,6 +162,7 @@ class EventAPI( object ):
         return my_json
 
     @app.route('/realTimeEvent/api/v2.1/topevents/<latitude>/<longitude>/<radius>/<dt>', methods=['GET'])
+    @authcheck
     def get_topEvents2(latitude=None, longitude=None, radius=None, dt=None):
 
         lat = 0
@@ -118,6 +187,7 @@ class EventAPI( object ):
         return my_json
 
     @app.route('/realTimeEvent/api/v2.1/totaltweets/<latitude>/<longitude>/<dt>', methods=['GET'])
+    @authcheck
     def get_totaltweets(latitude=None, longitude=None, dt=None):
 
         lat = 0
@@ -148,6 +218,7 @@ class EventAPI( object ):
         return my_json
 
     @app.route('/realTimeEvent/api/v2.1/totaltweets/<latitude>/<longitude>/<radius>/<dt>', methods=['GET'])
+    @authcheck
     def get_totaltweets2(latitude=None, longitude=None, dt=None, radius=None):
 
         lat = 0
@@ -172,6 +243,7 @@ class EventAPI( object ):
         return my_json
 
     @app.route('/realTimeEvent/api/v2.1/totalevents/<latitude>/<longitude>/<dt>', methods=['GET'])
+    @authcheck
     def get_totalevents(latitude=None, longitude=None, dt=None):
 
         lat = 0
@@ -201,6 +273,7 @@ class EventAPI( object ):
         return my_json
 
     @app.route('/realTimeEvent/api/v2.1/totalevents/<latitude>/<longitude>/<radius>/<dt>', methods=['GET'])
+    @authcheck
     def get_totalevents2(latitude=None, longitude=None, radius=None, dt=None):
 
         lat = 0
